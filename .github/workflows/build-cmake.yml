@@ -1,0 +1,83 @@
+name: Build CMake
+on:
+  push:
+    branches: ['**']
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+        - name: ubuntu
+          version: latest
+        - macos-11
+        compiler:
+          # you can specify the version after `-` like "llvm-13.0.0".
+          - llvm
+          - gcc
+        generator:
+          - "Ninja Multi-Config"
+        build_type:
+          - Release
+          - Debug
+        exclude:
+          # mingw is determined by this author to be too buggy to support
+          - os: macos-11
+            compiler: gcc
+        include:
+          - os: windows-2022
+            compiler: msvc
+            generator: "Visual Studio 17 2022"
+            build_type: Debug
+            developer_mode: On
+          - os: windows-2022
+            compiler: msvc
+            generator: "Visual Studio 17 2022"
+            build_type: Release
+            developer_mode: On
+          - os: windows-2022
+            compiler: msvc
+            generator: "Visual Studio 17 2022"
+            build_type: Debug
+            developer_mode: OFF
+          - os: windows-2022
+            compiler: msvc
+            generator: "Visual Studio 17 2022"
+            build_type: Release
+            developer_mode: OFF
+    runs-on: ${{ matrix.os.name }}-${{ matrix.os.version }}
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install Dependencies
+      if: matrix.os.name == 'ubuntu'
+      run: |
+        sudo apt-get update -y -qq
+        sudo apt-get install \
+          libgtk2.0-dev libpulse-dev mesa-common-dev libcairo2-dev \
+          libsdl2-dev libxv-dev libao-dev libopenal-dev libudev-dev
+    - name: Setup Cpp
+      uses: aminya/setup-cpp@v1
+      with:
+        compiler: ${{ matrix.compiler }}
+        vcvarsall: ${{ contains(matrix.os, 'windows' )}}
+
+        cmake: true
+        ninja: true
+        conan: true
+        vcpkg: false
+        ccache: true
+        clangtidy: true
+
+        cppcheck: true
+
+        gcovr: true
+        opencppcoverage: true
+
+    - name: Configure CMake
+      run: |
+          cmake -S . -B ./build -G "${{matrix.generator}}" -DCMAKE_BUILD_TYPE:STRING=${{matrix.build_type}} -DENABLE_DEVELOPER_MODE:BOOL=${{matrix.developer_mode}} -DOPT_ENABLE_COVERAGE:BOOL=${{ matrix.build_type == 'Debug' && matrix.developer_mode == 'OFF' }}
+
+    - name: Build
+      # Execute the build.  You can specify a specific target with "--target <NAME>"
+      run: |
+        cmake --build ./build --config ${{matrix.build_type}}
