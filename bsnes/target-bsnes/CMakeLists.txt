@@ -32,7 +32,6 @@ if (APPLE)
       ${bsnes_sources}
   )
 
-  #message("Shader files ${SHADER_SOURCES}")
   #individually set the file's path properties
   foreach(SHADER_FILE ${SHADER_SOURCES})
 
@@ -46,7 +45,6 @@ if (APPLE)
 
   endforeach(SHADER_FILE)
 
-  #message("Database files ${DATABASE_SOURCES}")
   #individually set the file's path properties
   foreach(DATABASE_FILE ${DATABASE_SOURCES})
 

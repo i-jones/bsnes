@@ -23,6 +23,7 @@ if (APPLE)
 elseif(UNIX)
         target_compile_definitions(hiro PRIVATE HIRO_GTK=2)
         find_package(GTK2 2.8 REQUIRED gtk)
+        target_include_directories(hiro PRIVATE ${GTK2_INCLUDE_DIRS})
         target_link_libraries(hiro PRIVATE ${GTK2_LIBRARIES})
 elseif(WIN32)
 # 

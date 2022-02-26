@@ -36,8 +36,4 @@ target_link_libraries(
     project_warnings
   PUBLIC
     libco
-  #  nall
-  #  hiro
-  #  ruby
-  #  gb)
 )
