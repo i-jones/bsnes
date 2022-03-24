@@ -8,8 +8,7 @@ jobs:
       fail-fast: false
       matrix:
         os:
-        - name: ubuntu
-          version: latest
+        - ubuntu-latest          
         - macos-11
         compiler:
           # you can specify the version after `-` like "llvm-13.0.0".
@@ -45,11 +44,11 @@ jobs:
             generator: "Visual Studio 17 2022"
             build_type: Release
             developer_mode: OFF
-    runs-on: ${{ matrix.os.name }}-${{ matrix.os.version }}
+    runs-on: ${matrix.os}
     steps:
     - uses: actions/checkout@v2
     - name: Install Dependencies
-      if: matrix.os.name == 'ubuntu'
+      if:  contains(matrix.os, 'ubuntu')
       run: |
         sudo apt-get update -y -qq
         sudo apt-get install \

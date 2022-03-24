@@ -17,6 +17,26 @@ add_library(gb
     Core/sm83_disassembler.c
     Core/symbol_hash.c
     Core/timing.c
+
+    Core/gb_struct_def.h
+    Core/apu.h
+    Core/camera.h
+    Core/debugger.h
+    Core/rumble.h
+    Core/display.h
+    Core/gb.h
+    Core/joypad.h
+    Core/mbc.h
+    Core/memory.h
+    Core/printer.h
+    Core/random.h
+    Core/rewind.h
+    Core/save_state.h
+    Core/sgb.h
+    Core/sm83_cpu.h
+    Core/symbol_hash.h
+    Core/timing.h
+
 )
 
 target_compile_definitions(gb PRIVATE GB_INTERNAL)

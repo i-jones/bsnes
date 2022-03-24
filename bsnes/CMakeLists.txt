@@ -2,6 +2,13 @@ add_subdirectory(gb)
 add_subdirectory(target-bsnes)
 add_subdirectory(target-libretro)
 
+file(GLOB_RECURSE emulator_headers CONFIGURE_DEPENDS emulator/*.hpp)
+file(GLOB_RECURSE filter_headers CONFIGURE_DEPENDS filter/*.hpp)
+file(GLOB_RECURSE heuristics_headers CONFIGURE_DEPENDS heuristics/*.hpp)
+file(GLOB_RECURSE lzma_headers CONFIGURE_DEPENDS lzma/*.hpp)
+file(GLOB_RECURSE processor_headers CONFIGURE_DEPENDS processor/*.hpp)
+file(GLOB_RECURSE sfc_headers CONFIGURE_DEPENDS sfc/*.hpp)
+
 add_library(libbsnes 
     emulator/emulator.cpp
     filter/filter.cpp
@@ -26,6 +33,13 @@ add_library(libbsnes
     processor/arm7tdmi/arm7tdmi.cpp
     processor/spc700/spc700.cpp
     processor/wdc65816/wdc65816.cpp
+
+    ${emulator_headers}
+    ${filter_headers}
+    ${heuristics_headers}
+    ${lzma_headers}
+    ${processor_headers}
+    ${sfc_headers}
 )
 
 target_include_directories(libbsnes SYSTEM PUBLIC .)

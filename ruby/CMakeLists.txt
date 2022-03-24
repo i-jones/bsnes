@@ -1,5 +1,7 @@
-add_library(ruby ruby.cpp ruby.hpp)
 
+file(GLOB_RECURSE ruby_headers CONFIGURE_DEPENDS *.hpp)
+
+add_library(ruby ruby.cpp ${ruby_headers})
 
 
 target_include_directories(ruby SYSTEM PUBLIC 

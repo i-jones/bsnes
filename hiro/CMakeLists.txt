@@ -1,4 +1,6 @@
-add_library(hiro hiro.cpp)
+file(GLOB_RECURSE hiro_headers CONFIGURE_DEPENDS *.hpp)
+
+add_library(hiro hiro.cpp ${hiro_headers})
 
 target_link_libraries(
   hiro

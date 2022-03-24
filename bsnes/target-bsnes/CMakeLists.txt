@@ -1,7 +1,7 @@
 #Get a list of all of the files in the data-folder
-file(GLOB_RECURSE SHADER_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/../../shaders/*")
-
-file(GLOB_RECURSE DATABASE_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/../Database/*")
+file(GLOB_RECURSE SHADER_SOURCES CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/../../shaders/*")
+file(GLOB_RECURSE DATABASE_SOURCES CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/../Database/*")
+file(GLOB_RECURSE bsnes_headers CONFIGURE_DEPENDS *.hpp)
 
 set(bsnes_sources
   bsnes.cpp
@@ -11,6 +11,7 @@ set(bsnes_sources
   settings/settings.cpp
   tools/tools.cpp
   resource/resource.cpp
+  ${bsnes_headers}
   ${SHADER_SOURCES}
   ${DATABASE_SOURCES}
 )

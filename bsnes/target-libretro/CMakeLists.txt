@@ -1,5 +1,7 @@
 add_library(bsnes_libretro SHARED
- libretro.cpp)
+ libretro.cpp
+ libretro.h
+ )
 target_link_libraries(
     bsnes_libretro
     PRIVATE

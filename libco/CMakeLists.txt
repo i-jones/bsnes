@@ -1,4 +1,4 @@
-add_library(libco libco.c)
+add_library(libco libco.c libco.h settings.h)
 
 target_link_libraries(
   libco
