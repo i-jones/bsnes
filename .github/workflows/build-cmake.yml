@@ -44,7 +44,7 @@ jobs:
             generator: "Visual Studio 17 2022"
             build_type: Release
             developer_mode: OFF
-    runs-on: ${matrix.os}
+    runs-on: ${{ matrix.os }}}
     steps:
     - uses: actions/checkout@v2
     - name: Install Dependencies
